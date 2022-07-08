@@ -1,60 +1,56 @@
 ﻿using System;
 using System.Text;
-using System.Text.RegularExpressions;
 
-namespace CodeBlogLesons
-{   
-
+namespace ConsoleApp2
+{
     internal class Program
     {
         static void Main(string[] args)
         {
-            Kata.AlphabetPosition("The sunset sets at twelve o' clock.");
+
+            Kata.ToWeirdCase("This is a test");
+
 
         }
 
-        public static class Kata
+        public class Kata
         {
-            public static string AlphabetPosition(string text)
-            {
-                char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-                text = text.ToUpper();
-                Regex reg = new Regex("[^a-zA-Z']");
-                text = reg.Replace(text, string.Empty);
-                char[] chars = text.ToCharArray();
-                int index;
-                string[] indexes = new string[chars.Length];
-                
-
+            public static string ToWeirdCase(string s)
+            {   
+                char [] chars = s.ToCharArray();
+                StringBuilder sb = new StringBuilder(); 
+                bool count = true;
                 for (int i = 0; i < chars.Length; i++)
-                {   
-
-
-                    index = Array.IndexOf(alpha, chars[i]);
-
-                    if (index == -1)
+                {
+       
+                    if (Char.IsWhiteSpace(chars[i]))
                     {
-                        continue;
+                        sb.Append(chars[i]);
+                        count = true;
+                        
                     }
                     else
-                    {   string temp = Convert.ToString(index + 1);
-                        indexes[i] = temp;
+                    {
+                        if (count == true)
+                        {
+                            char c = chars[i];
+                            sb.Append(Char.ToUpper(c));
+                            count = false;
+                            
+                        }
+                        else
+                        {
+                            char c = chars[i];
+                            sb = sb.Append(Char.ToLower(c));
+                            count = true;
+                        }
+                        
                     }
-                    
                 }
+                s = sb.ToString();
+                Console.WriteLine(s);
+                return s;
 
-                StringBuilder sb = new StringBuilder(indexes.Length);
-
-                foreach (var item in indexes)
-                {
-                    sb.Append(item + " ");
-                }
-
-                text = sb.ToString();
-                
-                Console.WriteLine(text);
-
-                return text;
             }
         }
     }
