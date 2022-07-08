@@ -48,7 +48,6 @@ namespace ConsoleApp2
                     }
                 }
                 s = sb.ToString();
-                Console.WriteLine(s);
                 return s;
 
             }
